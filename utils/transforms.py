@@ -25,17 +25,11 @@ def get_train_transforms(dataset: str = "cifar10", augment: bool = True, target_
     ]
 
     if augment:
-        # ======================================================================
-        def get_train_transforms(dataset_name="cifar10"):
-            return transforms.Compose([
-                transforms.Resize((64, 64)),
-                transforms.RandomCrop(64, padding=4, padding_mode="reflect"),
-                transforms.RandomHorizontalFlip(p=0.5),
-                transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
-                transforms.ToTensor(),
-                transforms.Normalize(mean=[0.4914, 0.4822, 0.4465],
-                                    std=[0.2470, 0.2435, 0.2616]),
-            ])
+        transform_list.extend([
+            transforms.RandomCrop(target_size, padding=4, padding_mode="reflect"),
+            transforms.RandomHorizontalFlip(p=0.5),
+            transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),
+        ])
 
     transform_list.extend([
         transforms.ToTensor(),
